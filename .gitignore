@@ -1,4 +1,4 @@
 .cache/
 build/
 .vscode/
-data.in
+vcpkg_installed/

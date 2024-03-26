@@ -1,7 +1,6 @@
-#include <bits/stdc++.h>
+#include <iostream>
 
 int main() {
-  auto x = 1 + 2;
   std::cout << "Hello world!" << std::endl;
   return 0;
 }
