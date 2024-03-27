@@ -23,7 +23,7 @@ else
 fi
 _CMD="$(command -v cmake)"
 if command -v ninja &> /dev/null; then
-  _CMD="${_CMD} -GNinja"
+  _CMD="${_CMD} -G\"Ninja Multi-Config\""
 fi
 _CMD="${_CMD} -DCMAKE_TOOLCHAIN_FILE=${VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
 _CMD="${_CMD} -DVCPKG_CHAINLOAD_TOOLCHAIN_FILE=${SCRIPT_DIR}/toolchain/clang-latest.cmake"

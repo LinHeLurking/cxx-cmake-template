@@ -1,4 +1,33 @@
 #
+# Set up multi-config generator
+#
+if(NOT SET_UP_CONFIGURATIONS_DONE)
+  set(SET_UP_CONFIGURATIONS_DONE TRUE)
+
+  # No reason to set CMAKE_CONFIGURATION_TYPES if it's not a multiconfig generator
+  # Also no reason mess with CMAKE_BUILD_TYPE if it's a multiconfig generator.
+  get_property(isMultiConfig GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
+  if(isMultiConfig)
+    message(STATUS "Generating multi-config for ${CMAKE_GENERATOR}")
+    set(CMAKE_CONFIGURATION_TYPES "Debug;Release;RelWithDebInfo;MinSizeRel" CACHE STRING "" FORCE) 
+  else()
+    if(NOT CMAKE_BUILD_TYPE)
+      message("Defaulting to debug build.")
+      set(CMAKE_BUILD_TYPE Debug CACHE STRING "" FORCE)
+    endif()
+    set_property(CACHE CMAKE_BUILD_TYPE PROPERTY HELPSTRING "Choose the type of build")
+    # set the valid options for cmake-gui drop-down list
+    set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug;Release;RelWithDebInfo;MinSizeRel")
+  endif()
+  # If you need custom compile flags, add "Custom" into "CMAKE_CONFIGURATION_TYPES".
+  # Then set up these flags.
+  # set(CMAKE_C_FLAGS_CUSTOM "...")
+  # set(CMAKE_CXX_FLAGS_CUSTOM "...")
+  # set(CMAKE_EXE_LINKER_FLAGS_CUSTOM "...")
+endif()
+
+
+#
 # Try to detect and load vcpkg toolchain.
 # VCPKG configurations must be called before `project`.
 #

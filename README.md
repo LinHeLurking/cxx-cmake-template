@@ -26,3 +26,14 @@ Try it with
 ```Bash
 ./configure-clang-vcpkg.sh
 ```
+
+## Multi-Config
+
+If you're using `ninja`, a generator supporting multi-config generation,
+`configure-clang-vcpkg.sh` will automatically selects `Ninja Multi-Config`
+as generator. Under such circumtance, cmake will produde several different
+build files in binary directory with a default `Debug` target.
+You can use `cd build && cmake --build . --config Release` or 
+`cd build && ninja -f build-Release.ninja` to build Release target.
+Replacing `Release` with other types such as `RelWithDebInfo` and `MinSizeRel`
+also works.
