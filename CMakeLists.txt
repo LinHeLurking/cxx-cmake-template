@@ -47,7 +47,6 @@ cmake_minimum_required(VERSION 3.20)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(BUILD_TESTS ON CACHE BOOL "Whether to build tests")
-set(VCPKG_MANIFEST_INSTALL OFF CACHE BOOL "Whether to install packages automatically")
 find_package(Threads REQUIRED)
 
 
