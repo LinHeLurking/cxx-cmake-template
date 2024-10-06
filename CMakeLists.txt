@@ -60,21 +60,24 @@ add_executable(main src/main.cc)
 # Tests 
 #
 if(BUILD_TESTS)
-  enable_testing()
-      
-  find_package(GTest CONFIG REQUIRED)
+    enable_testing()
 
-  macro(add_g_test name)
-    add_executable(${name} ${ARGN})
-    target_link_libraries(${name} INTERFACE Threads::Threads)
-    target_link_libraries(${name} PRIVATE 
-      GTest::gtest 
-      GTest::gtest_main 
-      GTest::gmock 
-      GTest::gmock_main
-    )
-    add_test(${name} ${name})
-  endmacro()
+    find_package(GTest CONFIG REQUIRED)
 
-  add_g_test(sample test/test_sample.cc)
+    macro(add_g_test TEST_NAME)
+        add_executable(${TEST_NAME} ${ARGN})
+        target_include_directories(${TEST_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+        target_link_libraries(${TEST_NAME} INTERFACE Threads::Threads)
+        target_link_libraries(${TEST_NAME} PRIVATE
+                GTest::gtest
+                GTest::gtest_main
+                # If you're using MSVC, don't link gmock.
+                # GTest::gmock
+                # GTest::gmock_main
+        )
+        add_test(${TEST_NAME} ${TEST_NAME})
+    endmacro()
+
+    add_g_test(sample test/test_sample.cc)
 endif()
+
